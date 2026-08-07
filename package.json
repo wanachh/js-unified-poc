@@ -1,7 +1,7 @@
 {
   "name": "js-unified-poc",
   "scripts": {
-    "setup": "git submodule update --init --recursive && npm install",
+    "setup": "git submodule update --init --recursive && npm install && node ./config/setup.mjs",
     "update-config": "git submodule update --remote && echo '✅ Config อัพเดทแล้ว! อย่าลืม git add . && git commit'",
     "format": "biome format --write ."
   },
