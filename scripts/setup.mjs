@@ -3,7 +3,9 @@ import { execFileSync } from 'node:child_process';
 import { resolve } from 'node:path';
 
 const root = process.cwd();
-const configSetup = resolve(root, 'config', 'setup.mjs');
+const configDir = resolve(root, 'config');
+const configRepoUrl = 'https://github.com/wanachh/formatter-common-config.git';
+const configSetup = resolve(configDir, 'setup.mjs');
 
 const run = (command, args) => {
   execFileSync(command, args, {
@@ -12,32 +14,27 @@ const run = (command, args) => {
   });
 };
 
-run('git', [
-  'restore',
-  '--source=HEAD',
-  '--staged',
-  '--worktree',
-  '.gitmodules',
-  'biome.json',
-  'config',
-]);
-run('git', [
-  'submodule',
-  'sync',
-  '--recursive',
-]);
-run('git', [
-  'submodule',
-  'update',
-  '--init',
-  '--recursive',
-]);
+if (!existsSync(configDir)) {
+  run('git', [
+    'clone',
+    configRepoUrl,
+    'config',
+  ]);
+} else if (existsSync(resolve(configDir, '.git'))) {
+  run('git', [
+    '-C',
+    'config',
+    'pull',
+    '--ff-only',
+  ]);
+}
+
 run('npm', [
   'install',
 ]);
 
 if (!existsSync(configSetup)) {
-  throw new Error('Expected config/setup.mjs after initializing the submodule.');
+  throw new Error('Expected config/setup.mjs after initializing the shared config repo.');
 }
 
 run('node', [

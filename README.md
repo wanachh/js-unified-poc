@@ -1,10 +1,10 @@
 # JS Unified POC
 
-This repo uses `formatter-common-config` as a shared formatting submodule for Biome.
+This repo bootstraps `formatter-common-config` locally for Biome formatting.
 
 ## What lives where
 
-- `config/biome.shared.json` is the shared Biome config in the submodule.
+- `config/biome.shared.json` is the shared Biome config from the bootstrap repo.
 - Root `biome.json` is the file Biome actually reads in this repo.
 - `config/setup.mjs` bootstraps the consuming repo.
 - `.vscode/settings.json` and `.vscode/extensions.json` are generated for save-on-format support.
@@ -17,8 +17,7 @@ This repo uses `formatter-common-config` as a shared formatting submodule for Bi
    npm run setup
    ```
 3. That will:
-   - restore `.gitmodules`, `config/`, and root `biome.json` if missing
-   - initialize/update the `formatter-common-config` submodule
+   - clone or update the `formatter-common-config` repo into `config/`
    - install dependencies
    - create `.vscode/settings.json`
    - create `.vscode/extensions.json`
@@ -28,12 +27,12 @@ This repo uses `formatter-common-config` as a shared formatting submodule for Bi
 ## Updating formatting from the mother repo
 
 1. Update `formatter-common-config` first.
-2. Push the submodule change.
+2. Push the shared config repo change.
 3. In this repo, run:
    ```bash
    npm run setup
    ```
-4. Commit the updated submodule pointer in this repo.
+4. Commit any root repo changes if needed.
 
 ## Local refresh
 
