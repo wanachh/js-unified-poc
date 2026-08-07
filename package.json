@@ -3,7 +3,7 @@
   "scripts": {
     "setup": "git submodule update --init --recursive && npm install",
     "update-config": "git submodule update --remote && echo '✅ Config อัพเดทแล้ว! อย่าลืม git add . && git commit'",
-    "format": "prettier --write ."
+    "format": "biome format --write ."
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.7",
