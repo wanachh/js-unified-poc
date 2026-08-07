@@ -3,7 +3,8 @@
   "scripts": {
     "setup": "node ./scripts/setup.mjs",
     "update-config": "git submodule update --remote && echo '✅ Config อัพเดทแล้ว! อย่าลืม git add . && git commit'",
-    "format": "biome format --write ."
+    "format": "biome format --write .",
+    "watch": "node scripts/watch-format.mjs"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.7",
